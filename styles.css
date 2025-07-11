@@ -1,0 +1,573 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 36px;
+    row-gap: 22px;
+    padding: 2rem;
+    min-height: 100vh;
+    max-width: 1480px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+#shortcuts-widget {
+    grid-column: 1 / -1;
+    min-height: auto;
+    padding: 2rem 2rem 1.5rem 2rem;
+}
+
+.widget {
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    min-height: 250px;
+    transition: all 0.3s ease;
+}
+
+.widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Date & Time Widget */
+#datetime-widget {
+    max-width: 270px;
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.main-time {
+    margin-bottom: 1.5rem;
+}
+
+.main-time .time {
+    font-size: 3.5rem;
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+}
+
+.main-time .date {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.time-separator {
+    width: 80%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    margin: 1rem 0;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+.secondary-timezones {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+}
+
+.secondary-time {
+    text-align: center;
+    flex: 1;
+}
+
+.timezone-label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}
+
+.timezone-time {
+    font-size: 1.43rem;
+    font-weight: 500;
+}
+
+/* Weather Widget */
+#weather-widget {
+    color: white;
+    height: 225px;
+    padding: 2rem 2rem 32px 32px;
+    max-width: 794px;
+}
+
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.city-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+
+
+.weather-forecast {
+    display: flex;
+    gap: 22px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 32px;
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+}
+
+.forecast-day {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 128px;
+    height: 128px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forecast-day .day {
+    font-size: 0.945rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.forecast-day .icon {
+    font-size: 1.575rem;
+    margin: 0.5rem 0;
+}
+
+.forecast-day .temp {
+    font-size: 0.945rem;
+    font-weight: 500;
+}
+
+/* Shortcuts Widget */
+#shortcuts-widget {
+    color: white;
+}
+
+.shortcuts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 128px;
+    height: 128px;
+    justify-content: center;
+}
+
+.shortcut:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.shortcut img {
+    width: 37px;
+    height: 37px;
+    margin-bottom: 0.5rem;
+}
+
+.shortcut span {
+    font-size: 0.88rem;
+    text-align: center;
+    color: white;
+}
+
+/* Edit Button */
+.edit-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    z-index: 1000;
+}
+
+.edit-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: white;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-button.active {
+    color: white;
+    border-bottom-color: #4f46e5;
+}
+
+.tab-button:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form Styles */
+.shortcut-form {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.shortcut-form input {
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+}
+
+.shortcut-form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.shortcut-form button {
+    padding: 0.75rem 1.5rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.shortcut-form button:hover {
+    background: #4338ca;
+}
+
+.background-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.background-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.background-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.background-controls input {
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+}
+
+.shortcuts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shortcut-item img {
+    width: 32px;
+    height: 32px;
+}
+
+.shortcut-item-info {
+    flex: 1;
+}
+
+.shortcut-item-name {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.shortcut-item-url {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.delete-shortcut {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.delete-shortcut:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.timezone-selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.timezone-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.timezone-selector label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+#timezone-select,
+#timezone-select-2 {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#timezone-select option,
+#timezone-select-2 option {
+    background: #1a1a2e;
+    color: white;
+}
+
+.weather-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.weather-selector label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+#city-select {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#city-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        column-gap: 1rem;
+        row-gap: 1rem;
+    }
+    
+    #datetime-widget {
+        max-width: 100%;
+        height: auto;
+        min-height: 225px;
+    }
+    
+    .main-time .time {
+        font-size: 3rem;
+    }
+    
+    .weather-forecast {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-forecast {
+        grid-template-columns: 1fr;
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .main-time .time {
+        font-size: 2.5rem;
+    }
+}

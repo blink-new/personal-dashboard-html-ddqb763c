@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="background-overlay"></div>
+    
+    <div class="dashboard-container">
+        <!-- Date & Time Widget -->
+        <div class="widget glass-card" id="datetime-widget">
+            <div class="main-time">
+                <div class="time" id="main-time">12:00</div>
+                <div class="date" id="main-date">Monday, January 1, 2024</div>
+            </div>
+            <div class="secondary-time">
+                <div class="timezone-label" id="timezone-label">New York</div>
+                <div class="timezone-time" id="timezone-time">12:00</div>
+            </div>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="widget glass-card" id="weather-widget">
+            <div class="weather-header">
+                <div class="city-selector">
+                    <select id="city-select">
+                        <option value="New York">New York</option>
+                        <option value="London">London</option>
+                        <option value="Tokyo">Tokyo</option>
+                        <option value="Sydney">Sydney</option>
+                        <option value="Paris">Paris</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weather-forecast" id="weather-forecast">
+                <!-- Weather forecast will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Shortcuts Widget -->
+        <div class="widget glass-card" id="shortcuts-widget">
+            <h3>Quick Access</h3>
+            <div class="shortcuts-grid" id="shortcuts-grid">
+                <!-- Default shortcuts -->
+                <div class="shortcut" data-url="https://gmail.com">
+                    <img src="https://img.icons8.com/color/48/000000/gmail.png" alt="Gmail">
+                    <span>Gmail</span>
+                </div>
+                <div class="shortcut" data-url="https://github.com">
+                    <img src="https://img.icons8.com/material-outlined/48/000000/github.png" alt="GitHub">
+                    <span>GitHub</span>
+                </div>
+                <div class="shortcut" data-url="https://twitter.com">
+                    <img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter">
+                    <span>Twitter</span>
+                </div>
+                <div class="shortcut" data-url="https://youtube.com">
+                    <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube">
+                    <span>YouTube</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Button -->
+    <div class="edit-button" id="edit-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+        </svg>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>Edit Dashboard</h2>
+                <button class="close-button" id="close-button">×</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="tab-button active" data-tab="shortcuts">Shortcuts</button>
+                <button class="tab-button" data-tab="background">Background</button>
+                <button class="tab-button" data-tab="timezone">Timezone</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Shortcuts Tab -->
+                <div class="tab-content active" id="shortcuts-tab">
+                    <div class="shortcuts-editor">
+                        <h3>Manage Shortcuts</h3>
+                        <div class="shortcut-form">
+                            <input type="text" id="shortcut-name" placeholder="Name" />
+                            <input type="url" id="shortcut-url" placeholder="URL" />
+                            <input type="url" id="shortcut-icon" placeholder="Icon URL" />
+                            <button id="add-shortcut">Add Shortcut</button>
+                        </div>
+                        <div class="shortcuts-list" id="shortcuts-list">
+                            <!-- Existing shortcuts will be listed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Background Tab -->
+                <div class="tab-content" id="background-tab">
+                    <div class="background-editor">
+                        <h3>Background Options</h3>
+                        <div class="background-options">
+                            <label>
+                                <input type="radio" name="bg-type" value="color" checked />
+                                Solid Color
+                            </label>
+                            <label>
+                                <input type="radio" name="bg-type" value="gradient" />
+                                Gradient
+                            </label>
+                            <label>
+                                <input type="radio" name="bg-type" value="image" />
+                                Image
+                            </label>
+                        </div>
+                        <div class="background-controls">
+                            <div class="color-controls">
+                                <input type="color" id="bg-color" value="#1a1a2e" />
+                                <label for="bg-color">Color</label>
+                            </div>
+                            <div class="gradient-controls" style="display: none;">
+                                <input type="color" id="gradient-start" value="#1a1a2e" />
+                                <input type="color" id="gradient-end" value="#16213e" />
+                                <label>Gradient Colors</label>
+                            </div>
+                            <div class="image-controls" style="display: none;">
+                                <input type="url" id="bg-image" placeholder="Image URL" />
+                                <label for="bg-image">Image URL</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timezone Tab -->
+                <div class="tab-content" id="timezone-tab">
+                    <div class="timezone-editor">
+                        <h3>Secondary Timezone</h3>
+                        <select id="timezone-select">
+                            <option value="America/New_York">New York (EST)</option>
+                            <option value="Europe/London">London (GMT)</option>
+                            <option value="Asia/Tokyo">Tokyo (JST)</option>
+                            <option value="Australia/Sydney">Sydney (AEST)</option>
+                            <option value="Europe/Paris">Paris (CET)</option>
+                            <option value="America/Los_Angeles">Los Angeles (PST)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
